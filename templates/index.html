@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZomotaDB</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/index.css">
+</head>
+<body>
+    <header>
+        <div class="head">
+            <div class="logo">
+                <h1>ZomatoDB</h1>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>
+            <div class="search">
+                <form action="/search" method="GET" target="_blank">
+                    <input type="text" name="query_id" placeholder="Search for restaurants">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        
+    </header>
+    
+    <div class="main">
+        <div class="container">
+            <div class="row">
+                {% for restaurant in restaurants %}
+                <div class="col-md-3">
+                    <div class="card custm-card">   
+                        {% set found_thumbnail = false %}
+                        {% for thumbnails in loaded_thumbnails %}
+                            {% if thumbnails["Restaurant ID"] == restaurant.id %}
+                                {% if not found_thumbnail %}
+                                    <img src="{{ thumbnails['featured_image'] }}" class="card-img-top custm-img" alt="...">
+                                    {% set found_thumbnail = true %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ restaurant.name }}</h5>
+                            <p class="card-text"><span>City: </span> {{ restaurant.city }} &nbsp;&nbsp;&nbsp;&nbsp;<span>Rating: </span> {{ restaurant.aggregate_rating }}</p>
+                            <a href="/restaurant/{{ restaurant.id }}" class="btn btn-dark custm-btn">View</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link page-prev" href="/?page={{ prev_page }}&per_page={{ per_page }}">Previous</a></li>
+                            {% for i in range(next_page-1, 5+next_page) %}
+                            <li class="page-item" aria-current="page"><a class="page-link page-set" href="/?page={{ i }}&per_page={{ per_page }}">{{ i }}</a></li>
+                            {% endfor %}
+                            <li class="page-item"><a class="page-link page-next" href="/?page={{ next_page }}&per_page={{ per_page }}">Next</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

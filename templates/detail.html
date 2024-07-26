@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Detail</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/details.css">
+</head>
+
+<body>
+    <header>
+        <div class="head" style="background-image: url('{{ img_url }}');background-position: center; background-size: cover;">
+            <h1>{{ restaurant.name }}</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div class="sub-title">
+            <h2>Restaurant Details</h2>
+        </div>
+        <div class="swipe-details">
+            <div class="cuisines card">
+                <h1>Cuisines</h1>
+                <p>{{ restaurant.cuisines }}</p>
+            </div>
+            <div class="address-details card">
+                <h1>Address Details</h1>
+                <p><span>Country:</span> {{ country }}</p>
+                <p><span>City:</span> {{ restaurant.city }}</p>
+                <p><span>Locality:</span> {{ restaurant.locality }}</p>
+                <p><span>Address:</span> {{ restaurant.address }}</p>
+                <p><span>Latitude:</span> {{ restaurant.latitude }}</p>
+                <p><span>Longitude:</span> {{ restaurant.longitude }}</p>
+            </div>
+            <div class="rating card">
+                <h1>Rating Details</h1>
+                <p><span>Rating:</span> {{ restaurant.aggregate_rating }}</p>
+                <p><span>Rating Text:</span> {{ restaurant.rating_text }}</p>
+                <p><span>Rating Color:</span> {{ restaurant.rating_color }}</p>
+                <p><span>User Reviews:</span> {{ restaurant.review_text }}</p>
+            </div>
+            <div class="pricing card">
+                <h1>Pricing Details</h1>
+                <p><span>Average Spend for Two:</span> {{ restaurant.average_cost_for_two }} {{ restaurant.currency }} </p>
+                <p><span>Price Range:</span> {{ restaurant.price_range }}</p>
+            </div>
+            <div class="booking card">
+                <h1>Booking Details</h1>
+                <p><span>Has Table Booking:</span> {{ restaurant.has_table_booking }}</p>
+                <p><span>Has Online Delivery:</span> {{ restaurant.has_online_delivery }}</p>
+                <p><span>Is Delivering Now:</span> {{ restaurant.is_delivering_now }}</p>
+                <p><span>Switch to Order Menu:</span> {{ restaurant.switch_to_order_menu }}</p>
+            </div>
+        </div>
+        <div class="feedback">
+            <h1>Share Your Experience</h1>
+            <div class="feedbackForm">
+                <form action="/feedbackFunction/{{ restaurant.id|int }}" method="get">
+                    <input type="text" placeholder="provide your feedback" name="reviewText" required>
+                    <input type="range" max="5" min="0" placeholder="Your Rating" name="rating" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+        
+</body>
+
+</html>
