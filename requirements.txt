@@ -1,0 +1,6 @@
+pandas
+sqlalchemy
+mysql-connector-python
+Flask
+requests
+python-dotenv
